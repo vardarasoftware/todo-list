@@ -6,28 +6,30 @@
     <title>Document</title>
     <link href="stylesheet.css" rel="stylesheet">
 </head>
-<body><center>
- <div id="d1">     
-    <h1>TO-DO List</h1>
-    <div>
-        <input type="text" id="i1" placeholder="Add a new task" required>
-        <!-- <input type="date" id="i2" required> -->
-        <button id="b1" onclick="addinput()">Add Task</button>
+<body>
+    <div id="main">
+        <div id="a1">
+            <h1>TO-DO List</h1>
+        </div>
+        <div>
+            <input type="text" id="txt" placeholder="Add task" required>
+            <input type="date" id="day">
+            <button id="btn">Add Task</button>
+        </div>
+        <div id="a2">
+            <button id="btn1">ALL</button>
+            <button id="btn2">panding</button>
+            <button id="btn3">Completed</button>
+            
+        </div>
+        <div>
+            <ul aria-live="polite" id="ul">
+                <!-- <li id="ll"></li> -->
+
+            </ul>
+            <!-- <button id="edit" >Edit</button> -->
+        </div>
     </div>
-    <div id="d2">
-        <ul id="u1" aria-live="polite">
-        
-        </ul>
-        <button id="b2">All</button>
-        <button id="b3">Pending</button>
-        <button id="b4">Completed</button>
-        <button id="b5">Filter</button>
-    </div>
-    <div>
-        <p id="p1"></p>
-    </div>
- </div>  
- </center>
- <script src="script.js"></script>  
+    <script src="script.js"></script>
 </body>
 </html>
