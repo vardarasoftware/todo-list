@@ -84,64 +84,136 @@
 
 // }
 
-const add = document.getElementById("txt");
-const ul = document.getElementById("ul");
-const btn = document.getElementById("btn");
+// const add = document.getElementById("txt");
+// const ul = document.getElementById("ul");
+// const btn = document.getElementById("btn");
 
-// if(add == "") return;
-btn.addEventListener("click" ,(event)=>{
+// // if(add == "") return;
+// btn.addEventListener("click" ,(event)=>{
+//      event.preventDefault();
+//     // add.addEventListener("keyup" ,(e)=>{
+//     //     if(e.key ==="Enter") AddTask();
+//     // });
 
-    // add.addEventListener("keyup" ,(e)=>{
-    //     if(e.key ==="Enter") AddTask();
-    // });
+//     // function AddTask(){
+//     //     const text = add.value;
+//     //     if(text ==="")return;
+//     // };
 
-    // function AddTask(){
-    //     const text = add.value;
-    //     if(text ==="")return;
-    // };
+//     let li = document.createElement("li");
+//     let edit = document.createElement("button");
+//     let del = document.createElement("button");
+//     let che = document.createElement("input");
+//     let span = document.createElement("span");
 
-    let li = document.createElement("li");
-    let edit = document.createElement("button");
-    let del = document.createElement("button");
-    let che = document.createElement("input");
-    let span = document.createElement("span");
+//     // li.textContent = add.value;
+//     che.type = "checkbox";
+//     span.textContent = add.value;
+//     edit.textContent = "update";
+//     del.textContent = "delete";
+//     // che.textContent = "checkbox";
+//     edit.style.backgroundColor = "blue";
+//     edit.style.height = "40px";
+//     edit.style.width = "100px";
+//     edit.style.margin = "10px";
+//     edit.style.borderRadius = "8px";
+//     del.style.backgroundColor ="red";
+//     del.style.height = "40px";
+//     del.style.width = "100px";
+//     del.style.margin = "10px";
+//     del.style.borderRadius = "8px";
+//     // div.append(ul);
+//     ul.append(li);
+//     li.append(span);
+//     li.append(che);
+//     li.append(edit);
+//     li.append(del);
+//     // che.addEventListener("change",()=>{
+//     //     che.checked;
+//     // });
+//     // che.addEventListener('change', () => {
+//         // span.style.textDecoration = che.checked ? "line-through" : "none";
+//         // });
+//         // span.style.textDecoration = che.checked ? "line-through" : "none";
 
-    li.textContent = add.value;
-    che.type = "checkbox";
-    edit.textContent = "update";
-    del.textContent = "delete";
-    span.textContent = add.value;
-    // che.textContent = "checkbox";
-    edit.style.backgroundColor = "blue";
-    edit.style.height = "40px";
-    edit.style.width = "100px";
-    edit.style.margin = "10px";
-    edit.style.borderRadius = "8px";
-    del.style.backgroundColor ="red";
-    del.style.height = "40px";
-    del.style.width = "100px";
-    del.style.margin = "10px";
-    del.style.borderRadius = "8px";
-    // div.append(ul);
-    ul.append(li);
-    li.append(che);
-    li.append(edit);
-    li.append(del);
-    li.append(span);
+//     del.onclick =()=>{
+//         li.remove();
+//     }
 
-
-    del.onclick =()=>{
-        li.remove();
-    }
-
-    edit.onclick =()=>{
-        // li.update();
-        add.value = span.textContent;
-        edit.textContent = "update";
-        li.remove();
+//     edit.onclick =()=>{
+//         // li.update();
+//         add.value = span.textContent;
+//         li.remove();
+//         btn.textContent = "update";
     
-        // li[index].text = add;
-    }
+//         // li[index].text = add;
+//     }
 
-    add.value = "";
-});
+//     add.value = "";
+// });
+
+let tasks =[];
+
+function addtask(taskText , taskDate){
+    const task = {
+        text: taskText,
+        date: taskDate,
+    }
+    if(task.text==""){
+            alert("Enter Data");
+        };
+        datevalidate();
+    tasks.push(task);
+    console.log(task);
+
+    displaytask();
+}
+
+function displaytask(){
+    const a2 = document.getElementById("ul");
+    
+    tasks.forEach(task => {        
+        const li = document.createElement('li');
+        li.textContent = `${task.text}, Due-${task.date}`;
+        a2.appendChild(li);
+        
+    });
+}
+
+const btn = document.getElementById("btn");
+const input = document.getElementById("txt");
+const date = document.getElementById("day");
+
+
+btn.addEventListener("click", () => {
+        
+        const taskText = input.value;
+        const taskDate = date.value;
+
+        if(taskText==""){
+        alert("Enter Data")
+        return;
+        }
+
+        if(taskDate && !datevalidate(taskDate)){
+            alert("enter a valid date")
+            return; 
+        }
+        addtask(taskText, taskDate);
+       input.value = "";
+       date.value = "";
+})
+function datevalidate(dateInput){
+    const selectDate = new Date(dateInput)
+    // console.log(selectDate)
+    const today = new Date()
+    today.setHours(0,0,0,0);
+
+    return selectDate >= today
+    // console.log(selectDate);
+}
+console.log(datevalidate);
+
+
+const d = new Date
+console.log(d)
