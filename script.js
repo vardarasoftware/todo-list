@@ -164,18 +164,37 @@ function addtask(taskText , taskDate){
         };
         datevalidate();
     tasks.push(task);
-    console.log(task);
+    saveTasks();
+    displaytask();
+    // console.log(task);
 
     displaytask();
 }
 
 function displaytask(){
     const a2 = document.getElementById("ul");
+    a2.innerHTML ="";
+   
     
     tasks.forEach(task => {        
         const li = document.createElement('li');
         li.textContent = `${task.text}, Due-${task.date}`;
+
+        const edit = document.createElement("button");
+        edit.textContent = "update";
+
+        const del = document.createElement("button");
+        del.textContent = "delete";
+
+        
+        del.onclick = () =>{
+            // li.remove();    
+            tasks.splice(li,1);
+            displaytask();
+        };
         a2.appendChild(li);
+        li.append(edit);
+        li.append(del);
         
     });
 }
@@ -195,13 +214,18 @@ btn.addEventListener("click", () => {
         return;
         }
 
+        if(taskDate==""){
+         alert("Enter Data")
+         return;
+        }
+
         if(taskDate && !datevalidate(taskDate)){
             alert("enter a valid date")
             return; 
         }
+        input.value = "";
+        date.value = "";
         addtask(taskText, taskDate);
-       input.value = "";
-       date.value = "";
 })
 function datevalidate(dateInput){
     const selectDate = new Date(dateInput)
@@ -212,8 +236,39 @@ function datevalidate(dateInput){
     return selectDate >= today
     // console.log(selectDate);
 }
-console.log(datevalidate);
+
+const storage_key = "my to-do";
+
+function loadTasks() {
+    const data = localStorage.getItem(storage_key);
+    tasks = data ? JSON.parse(data) : [];
+}
+
+function saveTasks() {
+    localStorage.setItem(storage_key, JSON.stringify(tasks));
+}
+
+loadTasks();
+// console.log(datevalidate);
 
 
-const d = new Date
-console.log(d)
+// const d = new Date
+// console.log(d);
+
+//  const store = localStorage.setItem( "todo" ,tasks);
+//  localStorage.getItem(store);
+//  console.log(store);
+
+//  function savetask(){
+    //     localStorage.setItem("storage_key" ,JSON.stringify(tasks));
+    //  }
+    
+// //  function loadTasks() {
+// //   const data = localStorage.getItem(storage_key);
+
+//   if (data) {
+//     tasks = JSON.parse(data);
+//   } else {
+//     tasks = [];
+//   }
+// }
