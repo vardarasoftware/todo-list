@@ -180,19 +180,37 @@ function displaytask(){
         const li = document.createElement('li');
         li.textContent = `${task.text}, Due-${task.date}`;
 
+        const check = document.createElement("input");
+        check.type = "checkbox";
+        
+
         const edit = document.createElement("button");
         edit.textContent = "update";
 
         const del = document.createElement("button");
         del.textContent = "delete";
-
+        
+        edit.style.backgroundColor = "blue";
+        edit.style.height = "40px";
+        edit.style.width = "100px";
+        edit.style.margin = "10px";
+        edit.style.borderRadius = "8px";
+        del.style.backgroundColor ="red";
+        del.style.height = "40px";
+        del.style.width = "100px";
+        del.style.margin = "10px";
+        del.style.borderRadius = "8px";
+        
         
         del.onclick = () =>{
             // li.remove();    
             tasks.splice(li,1);
+            // tasks.remove(li);
+            saveTasks();
             displaytask();
         };
         a2.appendChild(li);
+        li.append(check);
         li.append(edit);
         li.append(del);
         
@@ -248,6 +266,7 @@ function saveTasks() {
     localStorage.setItem(storage_key, JSON.stringify(tasks));
 }
 
+
 loadTasks();
 // console.log(datevalidate);
 
@@ -265,10 +284,4 @@ loadTasks();
     
 // //  function loadTasks() {
 // //   const data = localStorage.getItem(storage_key);
-
-//   if (data) {
-//     tasks = JSON.parse(data);
-//   } else {
-//     tasks = [];
-//   }
 // }
