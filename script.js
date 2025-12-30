@@ -1,158 +1,12 @@
-// function myinput1(){
-//     var li = document.createElement("li");
-//     var input = document.getElementById("i1").value;
-//     var n = document.createTextNode(input);
-//     li.appendChild(n);
-// }
-
-// function addinput(){
-//     const add = document.getElementById("i1");
-//     const mov = document.getElementById("u1");
-
-//     const li = document.createElement("li");
-//     // const bt = document.("button");
-//     li.textContent = add.value;
-//     // bt.textContent = add.value;
-
-//     mov.appendChild(li);
-//     add.value = '';
-// }
-
-// const add = document.getElementById("txt");
-//     const da = document.getElementById("day");
-//     const mov = document.getElementById("ul");
-//     const btn = document.getElementById("btn");
-
-//     btn.addEventListener("click" , myfun);
-
-
-//     let ar = arr[add , da];
-//     arr = add;
-
-    
-//     function myfun(){
-//         const li = document.createElement("li");
-//         li.textContent = add.value;
-//         mov.appendChild(li);
-//         add.value ="";
-//         // localStorage.setItem(add);
-//     }
-    // add.addEventListener("keyup" ,(e)=>{
-    //   if(e.key ==="Enter") addTask();
-    // });
-
-// add.addEventListener("key" ,(e)=>{
-
-//     if(e.key ==="enter") addTask();
-// });
-
-
-// function addTask() {
-//   const text = taskInput.value.trim();
-//   if (text === "") return;
-//    const task = {
-//     id: Date.now(),
-//     text,
-//     completed: false,
-//     dueDate: dateInput.value
-//   };   
-// } 
-
-    // if(add ==="") return;
-
-
-
-
-
-// function myfun(){
-//     const add = document.getElementById("txt");
-//     // const da = document.getElementById("day");
-//     const mov = document.getElementById("ul");
-//     const btn = document.getElementById("btn");
-
-
-//     btn.addEventListener()
-//     const li = document.createElement("li");
-//     // const l1 = document.createTextNode("button");
-//     li.textContent = add.value;
-//     // li.textContent = l1.value;
-
-    
-
-//     mov.appendChild(li);
-//     add.value ="";
-
-// }
-
-// const add = document.getElementById("txt");
-// const ul = document.getElementById("ul");
-// const btn = document.getElementById("btn");
-
-// // if(add == "") return;
-// btn.addEventListener("click" ,(event)=>{
-//      event.preventDefault();
-//     // add.addEventListener("keyup" ,(e)=>{
-//     //     if(e.key ==="Enter") AddTask();
-//     // });
-
-//     // function AddTask(){
-//     //     const text = add.value;
-//     //     if(text ==="")return;
-//     // };
-
-//     let li = document.createElement("li");
-//     let edit = document.createElement("button");
-//     let del = document.createElement("button");
-//     let che = document.createElement("input");
-//     let span = document.createElement("span");
-
-//     // li.textContent = add.value;
-//     che.type = "checkbox";
-//     span.textContent = add.value;
-//     edit.textContent = "update";
-//     del.textContent = "delete";
-//     // che.textContent = "checkbox";
-//     edit.style.backgroundColor = "blue";
-//     edit.style.height = "40px";
-//     edit.style.width = "100px";
-//     edit.style.margin = "10px";
-//     edit.style.borderRadius = "8px";
-//     del.style.backgroundColor ="red";
-//     del.style.height = "40px";
-//     del.style.width = "100px";
-//     del.style.margin = "10px";
-//     del.style.borderRadius = "8px";
-//     // div.append(ul);
-//     ul.append(li);
-//     li.append(span);
-//     li.append(che);
-//     li.append(edit);
-//     li.append(del);
-//     // che.addEventListener("change",()=>{
-//     //     che.checked;
-//     // });
-//     // che.addEventListener('change', () => {
-//         // span.style.textDecoration = che.checked ? "line-through" : "none";
-//         // });
-//         // span.style.textDecoration = che.checked ? "line-through" : "none";
-
-//     del.onclick =()=>{
-//         li.remove();
-//     }
-
-//     edit.onclick =()=>{
-//         // li.update();
-//         add.value = span.textContent;
-//         li.remove();
-//         btn.textContent = "update";
-    
-//         // li[index].text = add;
-//     }
-
-//     add.value = "";
-// });
-
 let tasks =[];
+let editIndex = null;
+
+const btn = document.getElementById("btn");
+const input = document.getElementById("txt");
+const date = document.getElementById("day");
+const a2 = document.getElementById("ul");
+
+const storage_key = "my to-do";
 
 function addtask(taskText , taskDate){
     const task = {
@@ -166,22 +20,21 @@ function addtask(taskText , taskDate){
     tasks.push(task);
     saveTasks();
     displaytask();
-    // console.log(task);
-
-    displaytask();
 }
 
 function displaytask(){
-    const a2 = document.getElementById("ul");
     a2.innerHTML ="";
    
     
-    tasks.forEach(task => {        
+    tasks.forEach((task ,index) => {        
         const li = document.createElement('li');
-        li.textContent = `${task.text}, Due-${task.date}`;
 
+        
         const check = document.createElement("input");
         check.type = "checkbox";
+        
+        const span = document.createElement("span");
+        span.textContent = `${task.text} | Due: ${task.date}`;
         
 
         const edit = document.createElement("button");
@@ -189,6 +42,11 @@ function displaytask(){
 
         const del = document.createElement("button");
         del.textContent = "delete";
+
+        check.addEventListener("click" ,()=>{
+            span.style.textDecoration = check.click ? "line-through" : "none";
+            saveTasks();
+        });
         
         edit.style.backgroundColor = "blue";
         edit.style.height = "40px";
@@ -202,25 +60,26 @@ function displaytask(){
         del.style.borderRadius = "8px";
         
         
-        del.onclick = () =>{
-            // li.remove();    
-            tasks.splice(li,1);
-            // tasks.remove(li);
+        del.onclick = () =>{  
+            tasks.splice(index,1);
             saveTasks();
-            displaytask();
+            displaytask();   
+        };
+            
+        edit.onclick = () => {
+        input.value = task.text;
+        date.value = task.date;
+        editIndex = index;
+        btn.textContent = "Update Task";
         };
         a2.appendChild(li);
         li.append(check);
+        li.append(span);
         li.append(edit);
         li.append(del);
         
     });
 }
-
-const btn = document.getElementById("btn");
-const input = document.getElementById("txt");
-const date = document.getElementById("day");
-
 
 btn.addEventListener("click", () => {
         
@@ -241,25 +100,39 @@ btn.addEventListener("click", () => {
             alert("enter a valid date")
             return; 
         }
+        if (editIndex !== null) {
+        tasks[editIndex].text = taskText;
+        tasks[editIndex].date = taskDate;
+        editIndex = null;
+        btn.textContent = "Add Task";
+        } else {
+        
+        tasks.push({
+            text: taskText,
+            date: taskDate,
+            completed: false
+        });
+    }
         input.value = "";
         date.value = "";
-        addtask(taskText, taskDate);
-})
+        saveTasks();
+        displaytask();
+});
+
+
 function datevalidate(dateInput){
     const selectDate = new Date(dateInput)
-    // console.log(selectDate)
+
     const today = new Date()
     today.setHours(0,0,0,0);
 
     return selectDate >= today
-    // console.log(selectDate);
-}
-
-const storage_key = "my to-do";
+};
 
 function loadTasks() {
     const data = localStorage.getItem(storage_key);
     tasks = data ? JSON.parse(data) : [];
+    displaytask();
 }
 
 function saveTasks() {
@@ -268,20 +141,3 @@ function saveTasks() {
 
 
 loadTasks();
-// console.log(datevalidate);
-
-
-// const d = new Date
-// console.log(d);
-
-//  const store = localStorage.setItem( "todo" ,tasks);
-//  localStorage.getItem(store);
-//  console.log(store);
-
-//  function savetask(){
-    //     localStorage.setItem("storage_key" ,JSON.stringify(tasks));
-    //  }
-    
-// //  function loadTasks() {
-// //   const data = localStorage.getItem(storage_key);
-// }
