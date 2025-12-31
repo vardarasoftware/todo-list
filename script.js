@@ -1,10 +1,13 @@
 let tasks =[];
 let editIndex = null;
+let currentFilter = "all";
 
 const btn = document.getElementById("btn");
 const input = document.getElementById("txt");
 const date = document.getElementById("day");
 const a2 = document.getElementById("ul");
+const filterButtons = document.querySelectorAll(".filter");
+
 
 const storage_key = "my to-do";
 
@@ -12,6 +15,7 @@ function addtask(taskText , taskDate){
     const task = {
         text: taskText,
         date: taskDate,
+        completed: false,
     }
     if(task.text==""){
             alert("Enter Data");
@@ -24,17 +28,26 @@ function addtask(taskText , taskDate){
 
 function displaytask(){
     a2.innerHTML ="";
-   
+    let filteredTasks = tasks;
+
+    if (currentFilter === "pending") {
+    filteredTasks = tasks.filter(task => !task.completed);
+    } else if (currentFilter === "completed") {
+    filteredTasks = tasks.filter(t => t.completed);
+    }
     
-    tasks.forEach((task ,index) => {        
+    filteredTasks.forEach((task ,index) => {        
         const li = document.createElement('li');
 
         
         const check = document.createElement("input");
         check.type = "checkbox";
+        check.checked = task.completed;
+        check.style.margin ="10px";
         
         const span = document.createElement("span");
         span.textContent = `${task.text} | Due: ${task.date}`;
+        span.style.textDecoration = task.completed ? "line-through" : "none";
         
 
         const edit = document.createElement("button");
@@ -43,9 +56,10 @@ function displaytask(){
         const del = document.createElement("button");
         del.textContent = "delete";
 
-        check.addEventListener("click" ,()=>{
-            span.style.textDecoration = check.click ? "line-through" : "none";
+        check.addEventListener("change", () => {
+            task.completed = check.checked;
             saveTasks();
+            displaytask();
         });
         
         edit.style.backgroundColor = "blue";
@@ -80,6 +94,14 @@ function displaytask(){
         
     });
 }
+filterButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    filterButtons.forEach(button => button.classList.remove("active"));
+    btn.classList.add("active");
+    currentFilter = btn.dataset.filter;
+    displaytask();
+  });
+});
 
 btn.addEventListener("click", () => {
         
@@ -110,7 +132,7 @@ btn.addEventListener("click", () => {
         tasks.push({
             text: taskText,
             date: taskDate,
-            completed: false
+            completed:false,
         });
     }
         input.value = "";
