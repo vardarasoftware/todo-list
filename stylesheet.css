@@ -1,0 +1,95 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    justify-content:center;
+    align-items: start;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
+#main{
+    background-color:rgb(252, 246, 206);
+    border-radius: 25px;
+}
+#a1{
+    margin: 20px;
+}
+#a2{
+    margin:15px;
+    
+}
+#txt{
+    height: 35px;
+    width: 200px;
+    border-radius:8px;
+    border: solid;
+    padding: 10px;
+}
+#day{
+    height: 35px;
+    width: 150px;
+    border-radius:8px;
+    border: solid;
+    padding: 10px;
+}
+#btn{
+     height: 35px;
+    width: 100px;
+    border-radius:8px;
+    padding: 10px;
+}
+#btn:hover:active{
+    background-color: blue;
+}
+.filter:hover:active{
+    background-color: blue;
+}
+.filter:hover:active{
+    background-color: blue;
+}
+.filter:hover:active{
+    background-color: blue;
+}
+.filter{
+    height: 35px;
+    width: 100px;
+    border-radius:8px;
+    padding: 10px;
+    margin: 10px;
+}
+.filter{
+    height: 35px;
+    width: 100px;
+    border-radius:8px;
+    padding: 10px;
+    margin: 10px;
+}
+.filter{
+    height: 35px;
+    width: 100px;
+    border-radius:8px;
+    padding: 10px;
+    margin: 10px;
+}
+.active {
+  background-color: blue;
+  color: white;
+}
+
+#ul{
+    list-style: none;
+    height:auto;
+    width:auto;
+    margin: 20px;
+    padding:20px;
+    background-color: rgb(250, 250, 143);
+    border-radius: 20px;
+}
+@media (max-width: 480px) {
+  .app {
+    width: 100%;
+  }
+}

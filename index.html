@@ -4,8 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="stylesheet.css" rel="stylesheet">
 </head>
 <body>
-    
+    <div id="main">
+        <div id="a1">
+            <h1>TO-DO List</h1>
+        </div>
+        <div>
+            <input type="text" id="txt" placeholder="Add task" required>
+            <input type="date" id="day">
+            <button id="btn">Add Task</button>
+        </div>
+        <div class="filters">
+         <button class="filter active" data-filter="all">All</button>
+         <button class="filter" data-filter="pending">Pending</button>
+         <button class="filter" data-filter="completed">Completed</button>
+        </div>
+        <div>
+            <ul aria-live="polite" id="ul">
+                <!-- <li id="ll"></li> -->
+
+            </ul>
+            <!-- <button id="edit" >Edit</button> -->
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
